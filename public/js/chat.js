@@ -13,12 +13,14 @@ const chatBox = $('#chatBox');
 const msgInput = $('#msgInput');
 const sendBtn = $('#sendBtn');
 const roomName = $('#roomName');
+const sidebarRoomName = $('#sidebarRoomName');
 const typingIndicator = $('#typingIndicator');
 const leaveBtn = $('#leaveBtn');
 
 // 1. Join Room
 socket.emit('joinRoom', { username, room });
 roomName.text(room);
+sidebarRoomName.text(room);
 
 // 2. Listen for Messages
 socket.on('message', (data) => {
