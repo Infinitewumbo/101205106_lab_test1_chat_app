@@ -14,11 +14,12 @@ app.use(express.json());
 app.use(express.static('views')); 
 app.use(express.static('public')); 
 
+const MONGO_URI = 'mongodb+srv://admin:uhNkwYpXTZItK7Ab@labtest1.aip6ttv.mongodb.net/?appName=Labtest1';
+
 // MongoDB Connection
-mongoose.connect('mongodb+srv://<YOUR_CONNECTION_STRING>', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('Connected to MongoDB'));
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('Could not connect to MongoDB', err));
 
 //  REST API Routes (Signup/Login) 
 app.post('/signup', async (req, res) => {
@@ -42,7 +43,7 @@ app.post('/login', async (req, res) => {
 });
 
 
-// Socket.io  (Real-time Chat) 
+// Socket.io Logic (Real-time Chat) 
 io.on('connection', (socket) => {
     console.log('New user connected: ' + socket.id);
 

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Chat App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/theme.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 flex items-center justify-center min-h-screen transition-colors duration-300">
+
+    <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold text-blue-600 dark:text-blue-400">Sign Up</h2>
+            <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                🌓
+            </button>
+        </div>
+
+        <form id="signupForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-1">Username</label>
+                <input type="text" id="username" name="username" required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="Create a username">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">First Name</label>
+                <input type="text" id="firstname" name="firstname" required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="Your first name">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Last Name</label>
+                <input type="text" id="lastname" name="lastname" required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="Your last name">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Password</label>
+                <input type="password" id="password" name="password" required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="Create a password">
+            </div>
+
+            <button type="submit" 
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition transform hover:scale-105">
+                Create Account
+            </button>
+        </form>
+
+        <p class="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+            Already have an account? 
+            <a href="login.html" class="text-blue-500 hover:underline font-medium">Login here</a>
+        </p>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#signupForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = {
+                    username: $('#username').val(),
+                    firstname: $('#firstname').val(),
+                    lastname: $('#lastname').val(),
+                    password: $('#password').val()
+                };
+
+                // Post to Server
+                $.ajax({
+                    url: '/signup',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function(response) {
+                        alert('Account created successfully!');
+                        window.location.href = 'login.html';
+                    },
+                    error: function(xhr) {
+                        alert('Error: ' + xhr.responseJSON.error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

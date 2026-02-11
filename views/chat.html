@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="/js/theme.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 flex flex-col h-screen transition-colors duration-300">
+
+    <header class="bg-blue-600 dark:bg-blue-800 text-white p-4 shadow-md flex justify-between items-center shrink-0">
+        <h1 class="text-xl font-bold flex items-center gap-2">
+            <span>💬</span> Chat App
+        </h1>
+        <div class="flex items-center gap-3">
+            <span class="text-sm opacity-90 hidden sm:block">Room: <span id="roomName" class="font-bold uppercase">...</span></span>
+            
+            <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-white/20 transition" title="Toggle Dark Mode">
+                🌓
+            </button>
+            
+            <button id="leaveBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition">
+                Leave
+            </button>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        
+        <aside class="w-64 bg-white dark:bg-gray-800 border-r dark:border-gray-700 hidden md:flex flex-col p-4">
+            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Current Room</h3>
+            <div class="bg-blue-50 dark:bg-gray-700 p-3 rounded-lg border border-blue-100 dark:border-gray-600 mb-6">
+                <p class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="sidebarRoomName">Loading...</p>
+            </div>
+            
+            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Status</h3>
+            <div class="flex items-center gap-2 text-green-500">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-sm font-medium">Online</span>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col relative bg-gray-50 dark:bg-gray-900">
+            
+            <div id="chatBox" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+                </div>
+
+            <div id="typingIndicator" class="h-6 px-4 text-xs text-gray-500 dark:text-gray-400 italic transition-all"></div>
+
+            <div class="p-4 bg-white dark:bg-gray-800 border-t dark:border-gray-700 shrink-0">
+                <div class="flex gap-2 max-w-4xl mx-auto">
+                    <input type="text" id="msgInput" 
+                        class="flex-1 px-4 py-2 border rounded-full bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white dark:focus:bg-gray-600 transition" 
+                        placeholder="Type your message..." autocomplete="off">
+                    
+                    <button id="sendBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-bold shadow-lg transition transform active:scale-95">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/chat.js"></script>
+
+</body>
+</html>
